@@ -293,7 +293,7 @@ func SignUp(c *context.Context) {
 	c.Title("sign_up")
 
 	c.Data["EnableCaptcha"] = setting.Service.EnableCaptcha
-
+	//c.Data["DisableRegistration"] = true
 	if setting.Service.DisableRegistration {
 		c.Data["DisableRegistration"] = true
 		c.Success(SIGNUP)

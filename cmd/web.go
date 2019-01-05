@@ -44,6 +44,12 @@ import (
 	"github.com/gogs/gogs/routes/org"
 	"github.com/gogs/gogs/routes/repo"
 	"github.com/gogs/gogs/routes/user"
+
+	//Stellar Modules
+	slog "log"
+	//"github.com/stellar/go/build"
+	//"github.com/stellar/go/clients/horizon"
+	"github.com/stellar/go/keypair"
 )
 
 var Web = cli.Command{
@@ -121,7 +127,7 @@ func newMacaron() *macaron.Macaron {
 
 	localeNames, err := bindata.AssetDir("conf/locale")
 	if err != nil {
-		log.Fatal(4, "Fail to list locale files: %v", err)
+		slog.Fatal(4, "Fail to list locale files: %v", err)
 	}
 	localFiles := make(map[string][]byte)
 	for _, name := range localeNames {
@@ -164,6 +170,69 @@ func newMacaron() *macaron.Macaron {
 	return m
 }
 
+
+// Stellar Functions
+
+func fillAccounts(addresses [2]string) {
+	    for _, address := range addresses {
+	        friendBotResp, err := http.Get("https://horizon-testnet.stellar.org/friendbot?addr=" + address)
+	    	if err != nil {
+	   			slog.Fatal(err)
+	   		}
+	    	defer friendBotResp.Body.Close()
+	    }
+	}
+/*
+	func logBalances(addresses [2]string) {
+	    for _, address := range addresses {
+			account, err := horizon.DefaultTestNetClient.LoadAccount(address)
+			if err != nil {
+				slog.Fatal(err)
+			}
+			slog.Println("Balances for address:", address)
+			for _, balance := range account.Balances {
+				slog.Println(balance)
+			}
+		}
+	}
+
+	func sendLumens(amount string, sourceSeed string, destinationAddress string) {
+	    tx, err := build.Transaction(
+			build.SourceAccount{sourceSeed},
+			build.TestNetwork,
+			build.AutoSequence{SequenceProvider: horizon.DefaultTestNetClient},
+			build.Payment(
+				build.Destination{AddressOrSeed: destinationAddress},
+				build.NativeAmount{Amount: amount},
+			),
+		)
+
+		if err != nil {
+			panic(err)
+		}
+
+		txe, err := tx.Sign(sourceSeed)
+		if err != nil {
+			panic(err)
+		}
+
+		txeB64, err := txe.Base64()
+		if err != nil {
+			panic(err)
+		}
+
+		resp, err := horizon.DefaultTestNetClient.SubmitTransaction(txeB64)
+		if err != nil {
+			panic(err)
+		}
+
+		slog.Println("Successfully sent", amount, "lumens to", destinationAddress,". Hash:", resp.Hash)
+	}
+*/
+
+// END Stellar Function
+
+
 func runWeb(c *cli.Context) error {
 	if c.IsSet("config") {
 		setting.CustomConf = c.String("config")
@@ -197,6 +266,26 @@ func runWeb(c *cli.Context) error {
 	m.Combo("/install", routes.InstallInit).Get(routes.Install).
 		Post(bindIgnErr(form.Install{}), routes.InstallPost)
 	m.Get("/^:type(issues|pulls)$", reqSignIn, user.Issues)
+
+	// Stellar Block
+
+	m.Get("/stellar", func() {
+		sourcePair, err := keypair.Random()
+		if err != nil {
+			slog.Fatal(err)
+		}
+		destinationPair, err := keypair.Random()
+		if err != nil {
+			slog.Fatal(err)
+		}
+
+		addresses := [2]string{sourcePair.Address(), destinationPair.Address()}
+
+	    fillAccounts(addresses)
+	    //logBalances(addresses)
+	    //sendLumens("100", sourcePair.Seed(), destinationPair.Address())
+	    //logBalances(addresses)
+	})
 
 	// ***** START: User *****
 	m.Group("/user", func() {

@@ -4,9 +4,9 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 	{{if not .PageIsAdmin}}
-		<meta name="author" content="{{if .Repository}}{{.Owner.Name}}{{else}}Gogs{{end}}" />
-		<meta name="description" content="{{if .Repository}}{{.Repository.Name}}{{if .Repository.Description}} - {{.Repository.Description}}{{end}}{{else}}Gogs is a painless self-hosted Git service{{end}}" />
-		<meta name="keywords" content="go, git, self-hosted, gogs">
+		<meta name="author" content="{{if .Repository}}{{.Owner.Name}}{{else}}Gitty{{end}}" />
+		<meta name="description" content="{{if .Repository}}{{.Repository.Name}}{{if .Repository.Description}} - {{.Repository.Description}}{{end}}{{else}}Gitty is a decentralised git platform powered with blockchain{{end}}" />
+		<meta name="keywords" content="go, git, self-hosted, gitty">
 	{{end}}
 	<meta name="referrer" content="no-referrer" />
 	<meta name="_csrf" content="{{.CSRFToken}}" />
@@ -30,12 +30,12 @@
 		<meta property="og:url" content="{{AppURL}}" />
 		<meta property="og:type" content="website" />
 		<meta property="og:title" content="{{AppName}}">
-		<meta property="og:description" content="Gogs is a painless self-hosted Git service.">
-		<meta property="og:image" content="{{AppURL}}img/gogs-lg.png" />
-		<meta property="og:site_name" content="Gogs">
+		<meta property="og:description" content="Gitty is a decentralised git platform powered with blockchain">
+		<meta property="og:image" content="{{AppURL}}img/gitty-logo.png" />
+		<meta property="og:site_name" content="Gitty">
 	{{end}}
 
-	<link rel="shortcut icon" href="{{AppSubURL}}/img/favicon.png" />
+	<link rel="shortcut icon" href="{{AppSubURL}}/img/favicon.ico" />
 
 	<script src="{{AppSubURL}}/js/jquery-1.11.3.min.js"></script>
 	<script src="{{AppSubURL}}/js/libs/jquery.are-you-sure.js"></script>
@@ -89,7 +89,7 @@
 						<div class="column">
 							<div class="ui top secondary menu">
 								<a class="item brand" href="{{AppSubURL}}/">
-									<img class="ui mini image" src="{{AppSubURL}}/img/favicon.png">
+									<img class="ui mini image" src="{{AppSubURL}}/img/gitty-logo.png">
 								</a>
 
 								{{if .IsLogged}}
@@ -148,9 +148,6 @@
 												<a class="{{if .PageIsUserSettings}}active{{end}} item" href="{{AppSubURL}}/user/settings">
 													<i class="octicon octicon-settings"></i> {{.i18n.Tr "your_settings"}}
 												</a>
-												<a class="item" target="_blank" rel="noopener noreferrer" href="https://gogs.io/docs" rel="noreferrer">
-													<i class="octicon octicon-question"></i> {{.i18n.Tr "help"}}
-												</a>
 												{{if .IsAdmin}}
 													<div class="divider"></div>
 
@@ -173,7 +170,6 @@
 
 								{{else}}
 
-									<a class="item" target="_blank" rel="noopener noreferrer" href="https://gogs.io/docs" rel="noreferrer">{{.i18n.Tr "help"}}</a>
 									<div class="right menu">
 										{{if .ShowRegistrationButton}}
 											<a class="item{{if .PageIsSignUp}} active{{end}}" href="{{AppSubURL}}/user/sign_up">

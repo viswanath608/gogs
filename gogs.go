@@ -24,8 +24,8 @@ func init() {
 
 func main() {
 	app := cli.NewApp()
-	app.Name = "Gogs"
-	app.Usage = "A painless self-hosted Git service"
+	app.Name = "Gitty Blockchain"
+	app.Usage = "Decentralised Git Using Blockchain"
 	app.Version = APP_VER
 	app.Commands = []cli.Command{
 		cmd.Web,
