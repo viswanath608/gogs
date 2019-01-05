@@ -22,7 +22,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/gogs/gogs/vendor/github.com/urfave/cli"
+	"github.com/viswanath608/gogs/vendor/github.com/urfave/cli"
 )
 
 var Cert = cli.Command{
