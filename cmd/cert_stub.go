@@ -10,7 +10,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/urfave/cli"
+	"github.com/gogs/gogs/vendor/github.com/urfave/cli"
 )
 
 var Cert = cli.Command{

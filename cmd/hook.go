@@ -16,7 +16,7 @@ import (
 	"strings"
 
 	"github.com/Unknwon/com"
-	"github.com/urfave/cli"
+	"github.com/gogs/gogs/vendor/github.com/urfave/cli"
 	log "gopkg.in/clog.v1"
 
 	"github.com/gogs/git-module"

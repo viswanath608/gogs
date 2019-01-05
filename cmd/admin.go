@@ -9,7 +9,7 @@ import (
 	"reflect"
 	"runtime"
 
-	"github.com/urfave/cli"
+	"github.com/gogs/gogs/vendor/github.com/urfave/cli"
 
 	"github.com/gogs/gogs/models"
 	"github.com/gogs/gogs/pkg/setting"

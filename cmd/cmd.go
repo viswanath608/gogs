@@ -7,7 +7,7 @@ package cmd
 import (
 	"time"
 
-	"github.com/urfave/cli"
+	"github.com/gogs/gogs/vendor/github.com/urfave/cli"
 )
 
 func stringFlag(name, value, usage string) cli.StringFlag {
